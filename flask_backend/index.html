@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data from Flask API</title>
+</head>
+<body>
+    <h1>Data from Flask API</h1>
+    <div id="data-container"></div>
+
+    <script>
+        // Function to fetch data from Flask API
+        async function fetchData() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/data');
+                // if (!response.ok) {
+                //     throw new Error('Network response was not ok');
+                // }
+                const data = await response.json();
+                displayData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Function to display data on the webpage
+        function displayData(data) {
+            const container = document.getElementById('data-container');
+            container.innerHTML = `
+                <p><strong>Nama:</strong> ${data.nama}</p>
+                <p><strong>Tes:</strong> ${data.tes}</p>
+            `;
+        }
+
+        // Call fetchData function when the page loads
+        window.onload = fetchData;
+    </script>
+</body>
+</html>
